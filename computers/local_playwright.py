@@ -5,7 +5,7 @@ from .base_playwright import BasePlaywrightComputer
 class LocalPlaywrightComputer(BasePlaywrightComputer):
     """Launches a local Chromium instance using Playwright."""
 
-    def __init__(self, headless: bool = False):
+    def __init__(self, headless: bool = True):
         super().__init__()
         self.headless = headless
 
