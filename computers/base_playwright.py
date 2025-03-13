@@ -117,22 +117,18 @@ class BasePlaywrightComputer:
         self._page.mouse.move(x, y)
 
     def keypress(self, keys: List[str]) -> None:
-        # For single key, just press it
         if len(keys) == 1:
             mapped_key = CUA_KEY_TO_PLAYWRIGHT_KEY.get(keys[0].lower(), keys[0])
             self._page.keyboard.press(mapped_key)
             return
 
-        # For key combinations, hold modifiers and press the last key
         for key in keys[:-1]:
             mapped_key = CUA_KEY_TO_PLAYWRIGHT_KEY.get(key.lower(), key)
             self._page.keyboard.down(mapped_key)
         
-        # Press the last key
         mapped_key = CUA_KEY_TO_PLAYWRIGHT_KEY.get(keys[-1].lower(), keys[-1])
         self._page.keyboard.press(mapped_key)
         
-        # Release modifiers in reverse order
         for key in reversed(keys[:-1]):
             mapped_key = CUA_KEY_TO_PLAYWRIGHT_KEY.get(key.lower(), key)
             self._page.keyboard.up(mapped_key)
